@@ -33,6 +33,9 @@ def get_eod_market_holidays(exchange: ExchangeType, ctx={}, **kwargs):
         print(val)
         print('\n')
 
+def get_eod_price_data(ticker: str, exchange: ExchangeType, ctx={}, **kwargs):
+    pass
+
 def get_eod_fundamental_data(ticker: str, exchange: ExchangeType, ctx={}, **kwargs):
     url = f'https://eodhistoricaldata.com/api/fundamentals/{ticker}.{exchange}?fmt=json&api_token={API_KEY}'
     res = request_url(url)
@@ -41,3 +44,6 @@ def get_eod_fundamental_data(ticker: str, exchange: ExchangeType, ctx={}, **kwar
         print(key)
         print(val)
         print('\n')
+
+def get_eod_dividend_data(ticker: str, exchange: ExchangeType, ctx={}, **kwargs):
+    pass
