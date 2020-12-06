@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from enum import Enum
 from core.dependencies import request_url
 from tools.structure import get_json_data_structure
@@ -22,28 +23,33 @@ class ExchangeType(str, Enum):
 def get_eod_exchange_info(exchange: ExchangeType, ctx={}, **kwargs):
     exchange_url = f'https://eodhistoricaldata.com/api/exchange-symbol-list/{exchange}?fmt=json&api_token={API_KEY}'
     res = request_url(exchange_url)
-    print(res.json())
+    return res.json()
 
-def get_eod_market_holidays(exchange: ExchangeType, ctx={}, **kwargs):
+def get_eod_market_holidays(exchange: ExchangeType, ctx={}, **kwargs) -> pd.DataFrame:
     url = f'https://eodhistoricaldata.com/api/exchange-details/{exchange}?api_token={API_KEY}&from=1970-01-01'
     res = request_url(url)
-    structure = get_json_data_structure(res.json())
-    for key, val in structure.items():
-        print(key)
-        print(val)
-        print('\n')
+    holidays_df = pd.DataFrame.from_dict(res.json()['ExchangeHolidays'], orient='index')
+    return holidays_df
 
-def get_eod_price_data(ticker: str, exchange: ExchangeType, ctx={}, **kwargs):
-    pass
+def get_eod_price_data(ticker: str, exchange: ExchangeType, ctx={}, **kwargs) -> pd.DataFrame:
+    url = f'https://eodhistoricaldata.com/api/eod/{ticker}.{exchange}?fmt=json&api_token={API_KEY}'
+    res = request_url(url)
+    price_df = pd.DataFrame(res.json())
+    return price_df
 
 def get_eod_fundamental_data(ticker: str, exchange: ExchangeType, ctx={}, **kwargs):
     url = f'https://eodhistoricaldata.com/api/fundamentals/{ticker}.{exchange}?fmt=json&api_token={API_KEY}'
     res = request_url(url)
-    structure = get_json_data_structure(res.json())
+    # Balance_Sheet, Cash_Flow, Income_Statement
+    # quarterly, yearly
+    structure = get_json_data_structure(res.json()['Financials']['Balance_Sheet']['quarterly'])
     for key, val in structure.items():
         print(key)
         print(val)
+        print(len(val[1]))
         print('\n')
 
 def get_eod_dividend_data(ticker: str, exchange: ExchangeType, ctx={}, **kwargs):
-    pass
+    url = f'https://eodhistoricaldata.com/api/div/{ticker}.{exchange}?fmt=json&api_token={API_KEY}'
+    res = request_url(url)
+    print(res.json())

@@ -33,8 +33,10 @@ def task_runner(func):
                     start = time.time()
                     if type(params) == dict:
                         res = info[i]['function'](**params, ctx=tc.ctx)
-                    else:
+                    elif type(params) == tuple:
                         res = info[i]['function'](*params, ctx=tc.ctx)
+                    else:
+                        res = info[i]['function'](params, ctx=tc.ctx)
                     if inspect.iscoroutinefunction(info[i]['function']):
                         res = asyncio.run(res)
                     end = time.time()

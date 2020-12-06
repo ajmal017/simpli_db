@@ -1,7 +1,7 @@
 from tasks.app import app
 from core.runner import task_runner
 from steps.data import get_data, concat
-from datasource.nasdaq import get_listings_from_nasdaq
+from datasource.nasdaq import make_nasdaq_listings
 
 @app.task(name='simpli.collect_data')
 @task_runner
@@ -13,5 +13,5 @@ def collect_data(ctx={}, stop_step=None, skip_steps=[], production=True, get_his
 @task_runner
 def update_stock_listings(ctx={}, stop_step=None, skip_steps=[], production=True, get_history=True, silence_error=False):
     return [
-        get_listings_from_nasdaq
+        make_nasdaq_listings
     ]

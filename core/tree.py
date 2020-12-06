@@ -17,6 +17,7 @@ class TaskTree:
         ann = copy.deepcopy(func.__annotations__)
         output_ann = ann.pop('return', None)
         output_ann = list(output_ann) if type(output_ann) == tuple else output_ann
+        output_ann = [output_ann] if type(output_ann) != list else output_ann
         input_ann = list(ann.values())
         return input_ann, output_ann
 

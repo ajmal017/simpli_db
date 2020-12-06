@@ -2,6 +2,7 @@
 https://github.com/ranaroussi/yfinance
 """
 import yfinance as yf
+
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 

@@ -1,3 +1,195 @@
 from django.db import models
 
-# Create your models here.
+
+class Info(models.Model):
+    date = models.CharField(max_length=20, blank=True, null=True)
+    code = models.CharField(max_length=25, blank=True, null=True)
+    exchange = models.CharField(max_length=20, blank=True, null=True)
+    stock_type = models.CharField(max_length=100, blank=True, null=True)
+    currency = models.CharField(max_length=20, blank=True, null=True)
+    isin = models.CharField(max_length=30, blank=True, null=True)
+    cusip = models.CharField(max_length=30, blank=True, null=True)
+    cik = models.CharField(max_length=30, blank=True, null=True)
+    employer_id_num = models.CharField(max_length=30, blank=True, null=True)
+    ipo_date = models.CharField(max_length=20, blank=True, null=True)
+    sector = models.CharField(max_length=100, blank=True, null=True)
+    industry = models.CharField(max_length=100, blank=True, null=True)
+    gic_sector = models.CharField(max_length=100, blank=True, null=True)
+    gic_group = models.CharField(max_length=100, blank=True, null=True)
+    gic_industry = models.CharField(max_length=100, blank=True, null=True)
+    gic_sub_industry = models.CharField(max_length=100, blank=True, null=True)
+    delisted = models.BooleanField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    fulltime_employees = models.IntegerField(blank=True, null=True)
+    extra = models.JSONField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.date} {self.code} {self.exchange}'
+
+
+class Price(models.Model):
+    date = models.CharField(max_length=20, blank=True, null=True)
+    code = models.CharField(max_length=25, blank=True, null=True)
+    exchange = models.CharField(max_length=20, blank=True, null=True)
+    open_p = models.FloatField(blank=True, null=True)
+    high_p = models.FloatField(blank=True, null=True)
+    low_p = models.FloatField(blank=True, null=True)
+    close_p = models.FloatField(blank=True, null=True)
+    adjusted_close = models.FloatField(blank=True, null=True)
+    volume = models.BigIntegerField(blank=True, null=True)
+    volume_amt = models.BigIntegerField(blank=True, null=True)
+    shtsale_trd_qty = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.date} {self.code} {self.exchange}'
+
+
+class Dividend(models.Model):
+    date = models.CharField(max_length=20, blank=True, null=True)
+    code = models.CharField(max_length=25, blank=True, null=True)
+    exchange = models.CharField(max_length=20, blank=True, null=True)
+    declaration_date = models.CharField(max_length=20, blank=True, null=True)
+    record_date = models.CharField(max_length=20, blank=True, null=True)
+    payment_date = models.CharField(max_length=20, blank=True, null=True)
+    period = models.CharField(max_length=25, blank=True, null=True)
+    value = models.FloatField(blank=True, null=True)
+    currency = models.CharField(max_length=20, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.date} {self.code} {self.exchange}'
+
+
+class BalanceSheet(models.Model):
+    date = models.CharField(max_length=20, blank=True, null=True)
+    code = models.CharField(max_length=25, blank=True, null=True)
+    exchange = models.CharField(max_length=20, blank=True, null=True)
+    filing_date = models.CharField(max_length=20, blank=True, null=True)
+    currency = models.CharField(max_length=20, blank=True, null=True)
+    total_assets = models.FloatField(blank=True, null=True)
+    intangible_assets = models.FloatField(blank=True, null=True)
+    earning_assets = models.FloatField(blank=True, null=True)
+    other_current_assets = models.FloatField(blank=True, null=True)
+    total_liab = models.FloatField(blank=True, null=True)
+    total_stockholder_equity = models.FloatField(blank=True, null=True)
+    deferred_long_term_liab = models.FloatField(blank=True, null=True)
+    other_current_liab = models.FloatField(blank=True, null=True)
+    common_stock = models.FloatField(blank=True, null=True)
+    retained_earnings = models.FloatField(blank=True, null=True)
+    other_liab = models.FloatField(blank=True, null=True)
+    good_will = models.FloatField(blank=True, null=True)
+    other_assets = models.FloatField(blank=True, null=True)
+    cash = models.FloatField(blank=True, null=True)
+    total_current_liabilities = models.FloatField(blank=True, null=True)
+    short_term_debt = models.FloatField(blank=True, null=True)
+    short_long_term_debt = models.FloatField(blank=True, null=True)
+    short_long_term_debt_total = models.FloatField(blank=True, null=True)
+    other_stockholder_equity = models.FloatField(blank=True, null=True)
+    property_plant_equipment = models.FloatField(blank=True, null=True)
+    total_current_assets = models.FloatField(blank=True, null=True)
+    long_term_investments = models.FloatField(blank=True, null=True)
+    net_tangible_assets = models.FloatField(blank=True, null=True)
+    short_term_investments = models.FloatField(blank=True, null=True)
+    net_receivables = models.FloatField(blank=True, null=True)
+    long_term_debt = models.FloatField(blank=True, null=True)
+    inventory = models.FloatField(blank=True, null=True)
+    accounts_payable = models.FloatField(blank=True, null=True)
+    total_permanent_equity = models.FloatField(blank=True, null=True)
+    noncontrolling_interest_in_cosolidated_entity = models.FloatField(blank=True, null=True)
+    temporary_equity_redeemable_noncontrolling_interests = models.FloatField(blank=True, null=True)
+    accumulated_other_comprehensive_income = models.FloatField(blank=True, null=True)
+    additional_paid_in_capital = models.FloatField(blank=True, null=True)
+    common_stock_total_equity = models.FloatField(blank=True, null=True)
+    preferred_stock_total_equity = models.FloatField(blank=True, null=True)
+    retained_earnings_total_equity = models.FloatField(blank=True, null=True)
+    treasury_stock = models.FloatField(blank=True, null=True)
+    accumulated_amortization = models.FloatField(blank=True, null=True)
+    non_current_assets_other = models.FloatField(blank=True, null=True)
+    deferred_long_term_asset_charges = models.FloatField(blank=True, null=True)
+    non_current_assets_total = models.FloatField(blank=True, null=True)
+    capital_lease_obligations = models.FloatField(blank=True, null=True)
+    long_term_debt_total = models.FloatField(blank=True, null=True)
+    non_current_liabilities_other = models.FloatField(blank=True, null=True)
+    non_current_liabilities_total = models.FloatField(blank=True, null=True)
+    negative_good_will = models.FloatField(blank=True, null=True)
+    warrants = models.FloatField(blank=True, null=True)
+    preferred_stock_redeemable = models.FloatField(blank=True, null=True)
+    capital_surpluses = models.FloatField(blank=True, null=True)
+    liabilities_and_stockholders_equity = models.FloatField(blank=True, null=True)
+    cash_and_short_term_investments = models.FloatField(blank=True, null=True)
+    property_plant_and_equipment_gross = models.FloatField(blank=True, null=True)
+    accumulated_depreciation = models.FloatField(blank=True, null=True)
+    common_stock_shares_outstanding = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.date} {self.code} {self.exchange}'
+
+
+class CashFlow(models.Model):
+    date = models.CharField(max_length=20, blank=True, null=True)
+    code = models.CharField(max_length=25, blank=True, null=True)
+    exchange = models.CharField(max_length=20, blank=True, null=True)
+    filing_date = models.CharField(max_length=20, blank=True, null=True)
+    currency = models.CharField(max_length=20, blank=True, null=True)
+    investments = models.FloatField(blank=True, null=True)
+    change_to_liabilities = models.FloatField(blank=True, null=True)
+    total_cashflows_from_investing_activities = models.FloatField(blank=True, null=True)
+    net_borrowings = models.FloatField(blank=True, null=True)
+    total_cash_from_financing_activities = models.FloatField(blank=True, null=True)
+    change_to_operating_activities = models.FloatField(blank=True, null=True)
+    net_income = models.FloatField(blank=True, null=True)
+    change_in_cash = models.FloatField(blank=True, null=True)
+    total_cash_from_operating_activities = models.FloatField(blank=True, null=True)
+    depreciation = models.FloatField(blank=True, null=True)
+    other_cashflows_from_investing_activities = models.FloatField(blank=True, null=True)
+    dividends_paid = models.FloatField(blank=True, null=True)
+    change_to_inventory = models.FloatField(blank=True, null=True)
+    change_to_account_receivables = models.FloatField(blank=True, null=True)
+    sale_purchase_of_stock = models.FloatField(blank=True, null=True)
+    other_cashflows_from_financing_activities = models.FloatField(blank=True, null=True)
+    change_to_net_income = models.FloatField(blank=True, null=True)
+    capital_expenditures = models.FloatField(blank=True, null=True)
+    change_receivables = models.FloatField(blank=True, null=True)
+    cashflows_other_operating = models.FloatField(blank=True, null=True)
+    exchange_rate_changes = models.FloatField(blank=True, null=True)
+    cash_and_cash_equivalents_changes = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.date} {self.code} {self.exchange}'
+
+
+class IncomeStatement(models.Model):
+    date = models.CharField(max_length=20, blank=True, null=True)
+    code = models.CharField(max_length=25, blank=True, null=True)
+    exchange = models.CharField(max_length=20, blank=True, null=True)
+    filing_date = models.CharField(max_length=20, blank=True, null=True)
+    research_development = models.FloatField(blank=True, null=True)
+    effect_of_accounting_charges = models.FloatField(blank=True, null=True)
+    income_before_tax = models.FloatField(blank=True, null=True)
+    minority_interest = models.FloatField(blank=True, null=True)
+    net_income = models.FloatField(blank=True, null=True)
+    selling_general_administrative = models.FloatField(blank=True, null=True)
+    gross_profit = models.FloatField(blank=True, null=True)
+    ebit = models.FloatField(blank=True, null=True)
+    non_operating_income_net_other = models.FloatField(blank=True, null=True)
+    operating_income = models.FloatField(blank=True, null=True)
+    other_operating_expenses = models.FloatField(blank=True, null=True)
+    interest_expense = models.FloatField(blank=True, null=True)
+    tax_provision = models.FloatField(blank=True, null=True)
+    interest_income = models.FloatField(blank=True, null=True)
+    net_interest_income = models.FloatField(blank=True, null=True)
+    extraordinary_items = models.FloatField(blank=True, null=True)
+    non_recurring = models.FloatField(blank=True, null=True)
+    other_items = models.FloatField(blank=True, null=True)
+    income_tax_expense = models.FloatField(blank=True, null=True)
+    total_revenue = models.FloatField(blank=True, null=True)
+    total_operating_expenses = models.FloatField(blank=True, null=True)
+    cost_of_revenue = models.FloatField(blank=True, null=True)
+    total_other_income_expense_net = models.FloatField(blank=True, null=True)
+    discontinued_operations = models.FloatField(blank=True, null=True)
+    net_income_from_continuing_ops = models.FloatField(blank=True, null=True)
+    net_income_applicable_to_common_shares = models.FloatField(blank=True, null=True)
+    preferred_stock_and_other_adjustments = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.date} {self.code} {self.exchange}'
+
